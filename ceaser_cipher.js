@@ -21,6 +21,18 @@ class CeaserCipher{
 		return alphabet;
 	}
 
+	createNumberArray() {
+
+		let  numbers = [];
+		let  start 	 = "0".charCodeAt(0); 
+		let  end 	 = "9".charCodeAt(0); 
+		
+		for(let i = start; i<= end; i++ ) {
+			numbers.push(String.fromCharCode(i));
+		}
+		return numbers;
+	}
+
 	crypte() {
 		let wordLength  = this.word.length;
 		let cryptedWord = "";
@@ -40,7 +52,7 @@ class CeaserCipher{
 	}
 
 	getLetterToCrypte(letter) {
-		let getArray = this.createAlphabet();
+		let getArray = this.getArrayWithTypeOf(letter);
 		let indexNumber = getArray.indexOf(letter)+parseInt(this.cryptekey);
 
 		if( indexNumber >= getArray.length ) {
@@ -53,8 +65,17 @@ class CeaserCipher{
 		}
 	}
 
+	isNumeric(n) {
+	  	return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+
+	getArrayWithTypeOf(letter) {
+		let getArray = (this.isNumeric(letter)) ? this.createNumberArray() : this.createAlphabet();
+		return getArray;
+	}
+
 	getLettertoDecrypte(letter) {
-		let getArray = this.createAlphabet();
+		let getArray = this.getArrayWithTypeOf(letter);
 		let indexNumber = getArray.indexOf(letter)-parseInt(this.cryptekey);
 		let space = ' ';
 
